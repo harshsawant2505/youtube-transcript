@@ -26,8 +26,18 @@ res.json({ message: 'Transcript fetched, check console for output.', "transcript
 
 });
 
+app.post('/transcript', async (req, res) => {
+  const { videoId } = req.body;
+  const { fetchTranscript } = require('youtube-transcript-plus');
 
+  async function getTranscript(videoId) {
+    const transcript = await fetchTranscript(videoId);
+    return transcript;
+  }
 
+  const transcript = await getTranscript(videoId);
+  res.status(200).json({ message: 'Transcript fetched successfully.', transcript });
+});
 
  app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
