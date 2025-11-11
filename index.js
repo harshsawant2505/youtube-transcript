@@ -27,7 +27,8 @@ res.json({ message: 'Transcript fetched, check console for output.', "transcript
 });
 
 app.post('/transcript', async (req, res) => {
-  const { videoId } = req.body;
+  const { videoId } = await req.body;
+console.log(videoId);
   const { fetchTranscript } = require('youtube-transcript-plus');
 
   async function getTranscript(videoId) {
