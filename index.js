@@ -30,7 +30,9 @@ app.post('/transcript', async (req, res) => {
   const { videoId } = await req.body;
 console.log(videoId);
   const { fetchTranscript } = require('youtube-transcript-plus');
-
+    try {
+        
+   
   async function getTranscript(videoId) {
     const transcript = await fetchTranscript(videoId);
     return transcript;
@@ -38,6 +40,10 @@ console.log(videoId);
 
   const transcript = await getTranscript(videoId);
   res.status(200).json({ message: 'Transcript fetched successfully.', transcript });
+
+}catch (error) {
+    res.status(500).json({ message: 'Error fetching transcript.', error: error.message });
+    }
 });
 
  app.listen(PORT, () => {
